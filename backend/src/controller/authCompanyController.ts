@@ -1,6 +1,7 @@
 import { ICompanyDatabase } from "./../models/companyDatabase";
 import { NextFunction, Request, Response } from "express";
-import bcrypt from "bcrypt"; // changed from "bcryptjs"
+// import bcrypt from "bcrypt"; // changed from "bcryptjs"
+import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import CompanyDatabase from "../models/companyDatabase";
 import dotenv from "dotenv";
