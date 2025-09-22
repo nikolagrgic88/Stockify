@@ -1,12 +1,11 @@
-
 import { Request, Response, NextFunction } from "express";
 import Product from "../models/product";
 import Location from "../models/location";
-import { Types } from "mongoose";
+import mongoose from "mongoose";
 import { clearInventoryById } from "../services/locationService";
 
 type TProduct = {
-  productId: Types.ObjectId;
+  productId: mongoose.Types.ObjectId;
   quantity: number;
 };
 
@@ -162,7 +161,7 @@ export const deleteInventoryById = async (
     const location = await clearInventoryById(locationId);
     if (!location) {
       res.status(404).json({ message: "Location doesn't exist!" });
-      return
+      return;
     }
     res.status(200).json({
       message: "Products successfully deleted from location",
@@ -183,7 +182,7 @@ export const deleteProductFromInventory = async (
     const location = await Location.findByIdAndUpdate(
       locationId,
       {
-        $pull: { products: { productId: new Types.ObjectId(productId) } },
+        $pull: { products: { productId: new mongoose.Types.ObjectId(productId) } },
       },
       { new: false }
     );
@@ -202,7 +201,7 @@ export const deleteProductFromInventory = async (
     const product = await Product.updateOne(
       { _id: productId },
       {
-        $pull: { locations: { locationId: new Types.ObjectId(locationId) } },
+        $pull: { locations: { locationId: new mongoose.Types.ObjectId(locationId) } },
         $inc: { totalQuantity: -removedQuantity },
       },
       { new: true }

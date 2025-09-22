@@ -140,7 +140,7 @@ export const createMovement = async (
               quantity: product.quantity,
             },
           },
-        },
+        } as any,
       },
     }));
 
@@ -192,7 +192,7 @@ export const createMovement = async (
               quantity: product.quantity,
             },
           },
-        },
+        } as any,
       },
     }));
 
@@ -253,12 +253,12 @@ export const createMovement = async (
 
     const [newMovement] = await Movement.create(
       [
-      {
-        itemsMoved,
-        fromLocation: location,
-        toLocation: await Location.findById(toLocationId).lean(),
-        user, 
-      },
+        {
+          itemsMoved,
+          fromLocation: location,
+          toLocation: await Location.findById(toLocationId).lean(),
+          user,
+        },
       ],
       { session }
     );

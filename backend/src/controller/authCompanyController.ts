@@ -5,7 +5,7 @@ import jwt from "jsonwebtoken";
 import CompanyDatabase from "../models/companyDatabase";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
-import { error } from "console";
+
 dotenv.config();
 
 export const postCompanyLogin = async (

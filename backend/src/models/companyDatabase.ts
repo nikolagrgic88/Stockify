@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
-
 export interface ICompanyDatabase extends Document {
+  _id: string;
   dbURI: string;
   name: string;
   dateCreated: Date;
