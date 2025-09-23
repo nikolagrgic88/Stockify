@@ -42,11 +42,16 @@ export const postCompanyLogin = async (
     const token = jwt.sign({ companyId: company._id }, secret, {
       expiresIn: "24h",
     });
+    console.log("Setting cookie:", {
+      token,
+      env: process.env.NODE_ENV,
+      secure: process.env.NODE_ENV === "production",
+    });
 
     res.cookie("company_auth_token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
-      sameSite: "strict",
+      sameSite: "none",
       path: "/",
       maxAge: 24 * 60 * 60 * 1000,
     });

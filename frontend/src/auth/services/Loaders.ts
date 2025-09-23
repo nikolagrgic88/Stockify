@@ -6,6 +6,7 @@ import { useCompanyState, useUserState } from "../../state";
 
 export async function companyLoginLoader() {
   try {
+  
     const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
       withCredentials: true,
     });
@@ -25,6 +26,7 @@ export async function companyLoginLoader() {
 
 export async function userLoginLoader() {
   try {
+  
     await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
       withCredentials: true,
     });
@@ -49,7 +51,7 @@ export async function userLoginLoader() {
       userName: user.data.userName,
       auth: user.data.auth,
       position: user.data.position,
-      userId: user.data._id,
+      _id: user.data._id,
       isUserAuthenticated: true,
     });
 
