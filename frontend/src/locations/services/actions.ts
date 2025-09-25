@@ -1,4 +1,4 @@
-import { addLocation, deleteLocation, Location, NewLocation } from "./api";
+import { addLocation, Location, NewLocation, removeLocation } from "./api";
 import { updateLocation } from "./api";
 import { ActionFunctionArgs } from "react-router";
 import { QueryClient } from "@tanstack/react-query";
@@ -6,15 +6,8 @@ import { queryClient } from "../../shared";
 import { handleAxiosError } from "../../shared/utils/handleAxiosError";
 
 export const deleteLocationAction = async ({ params }: ActionFunctionArgs) => {
-  const controller = new AbortController();
-
   try {
-    const locationId = params.locationId as string;
-    const deletedLocation = await deleteLocation({
-      signal: controller.signal,
-      locationId: locationId,
-    });
-    console.log("DELETED LOCSTION", deletedLocation);
+    const deletedLocation = await removeLocation(params.locationId as string);
 
     await queryClient.invalidateQueries({ queryKey: ["locations"] });
     return new Response(

@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { BASE_URL } from "../../shared";
 import api from "../../shared/services/axiosInstance";
 

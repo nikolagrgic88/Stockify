@@ -1,4 +1,3 @@
-import axios from "axios";
 import { API_MOVEMENT_URL } from "../../shared";
 import { Location } from "../../locations";
 import api from "../../shared/services/axiosInstance";

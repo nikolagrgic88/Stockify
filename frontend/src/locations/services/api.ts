@@ -115,3 +115,12 @@ export const updateLocation = async ({
 
   return updatedLocation.data;
 };
+
+export const removeLocation = async (locationId: string) => {
+  const controller = new AbortController();
+  const deletedLocation = await deleteLocation({
+    signal: controller.signal,
+    locationId,
+  });
+  return deletedLocation;
+};

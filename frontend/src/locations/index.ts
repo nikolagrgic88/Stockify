@@ -6,7 +6,7 @@ import NewLocationPage from "./pages/NewLocationPage";
 import DeleteLocationPage from "../shared/components/DeletePage";
 import LocationDetailsPage from "./pages/LocationDetailsPage";
 import FindLocationPage from "./pages/FindLocationPage";
-import { deleteLocation, fetchLocation } from "./services/api";
+import { deleteLocation, fetchLocation, removeLocation } from "./services/api";
 import { deleteLocationAction, updateLocationAction } from "./services/actions";
 import { createNewLocatioAction } from "./services/actions";
 
@@ -23,5 +23,6 @@ export {
   createNewLocatioAction,
   fetchLocation,
   useFetchLocations,
+  removeLocation,
 };
 export type { Location };

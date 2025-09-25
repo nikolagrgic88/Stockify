@@ -1,5 +1,5 @@
 import { Location } from "./../../locations/services/api";
-import axios from "axios";
+
 import { type Item } from "../../items";
 import { API_INVENTORY_URL } from "../../shared";
 import api from "../../shared/services/axiosInstance";

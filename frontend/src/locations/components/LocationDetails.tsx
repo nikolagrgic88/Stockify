@@ -3,12 +3,12 @@ import { ChangeEvent, useEffect, useMemo, useState } from "react";
 import { useActionData, useNavigate } from "react-router";
 import { Inventory } from "../../inventory/services/api";
 
-import { deleteLocationAction } from "../services/actions";
 import { FormAlert } from "../../shared";
 import DeleteDialog from "../../shared/components/DeleteDialog";
 import DeleteAlert from "../../shared/components/DeleteAlert";
 import LocationForm from "./LocationForm";
 import { DELETE_LOCATION } from "../../shared/constants/dialogText";
+import { removeLocation } from "../services/api";
 
 type LocationFormProps = {
   data?: Inventory;
@@ -27,35 +27,32 @@ const LocationDetails = ({ data, form }: LocationFormProps) => {
   const [formState, setFormState] = useState(data);
   const [alertMessage, setAlertMessage] = useState("");
   const [success, setSuccess] = useState<"success" | "error">("error");
-  
+
   const navigate = useNavigate();
   const actionData = useActionData() as ActionData;
   const isNewLocation = useMemo(() => form === "POST", [form]);
 
   const handleDelete = async () => {
     if (!formState?._id) return;
-    const response = await deleteLocationAction(formState?._id);
-    if (!response) {
-      setAlertMessage("Failed to delete location: No response received.");
-      return;
+
+    try {
+      const deletedLocation = await removeLocation(formState._id); // use removeLocation
+      setSuccess("success");
+      setAlertMessage(
+        deletedLocation.message || "Location deleted successfully"
+      );
+
+      setTimeout(() => navigate(-1), 2000);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setSuccess("error");
+        setAlertMessage(error.message || "Something went wrong!");
+      } else {
+        setSuccess("error");
+        setAlertMessage("Something went wrong!");
+      }
     }
-    const data = await response.json();
-    setSuccess(data.success ? "success" : "error");
-    if (response.ok) {
-      setAlertMessage(data.message || "Location Deleted Successfuly");
-      setTimeout(() => {
-        navigate(-1);
-      }, 2000);
-    } else {
-      //TODO fix if delete fails
-      setAlertMessage(data.message || "Something went wrong!");
-    }
-    setTimeout(() => {
-      setAlertMessage("");
-      setOpenDeleteDialog(false);
-    }, 2000);
   };
- 
   useEffect(() => {
     if (actionData) {
       if (!actionData.success) {

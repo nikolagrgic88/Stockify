@@ -1,4 +1,3 @@
-import axios from "axios";
 import { API_DASHBOARD_PAGE_URL } from "../../shared/constants/urls";
 import api from "../../shared/services/axiosInstance";
 

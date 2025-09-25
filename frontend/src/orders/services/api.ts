@@ -1,4 +1,4 @@
-import axios from "axios";
+
 import { API_ORDERS_URL } from "../../shared/constants/urls";
 import { Order } from "../pages/NewOrderPage";
 import api from "../../shared/services/axiosInstance";

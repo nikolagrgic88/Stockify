@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Location } from "../../locations";
 import { API_INVENTORY_URL, API_ITEMS_URL } from "../../shared/constants/urls";
 import api from "../../shared/services/axiosInstance";
