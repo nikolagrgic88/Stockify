@@ -28,9 +28,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 // app.use(cors({ origin: FRONTEND_URL, credentials: true }));
+const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: function (origin, callback) {
+      if (!origin) return callback(null, true); // allow for Postman
+      if (allowedOrigins.indexOf(origin) === -1) {
+        const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        return callback(new Error(msg), false);
+      }
+      return callback(null, true);
+    },
     credentials: true,
   })
 );
