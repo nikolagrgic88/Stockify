@@ -4,14 +4,6 @@ import CompanyFormAction from "./services/CompanyFormAction";
 import UserFormAction from "./services/UserFormAction";
 import { AUTH_URL } from "./constants/urls";
 import AuthPage from "./pages/AuthPage";
-import {
-  getUserSession,
-  commitUserSession,
-  destroyUserSession,
-  getCompanySession,
-  commitCompanySession,
-  destroyCompanySession,
-} from "./services/sessions.server";
 
 export {
   CompanyLoginPage,
@@ -19,11 +11,5 @@ export {
   CompanyFormAction,
   UserFormAction,
   AUTH_URL,
-  getUserSession,
-  commitUserSession,
-  destroyUserSession,
-  getCompanySession,
-  commitCompanySession,
-  destroyCompanySession,
   AuthPage,
 };

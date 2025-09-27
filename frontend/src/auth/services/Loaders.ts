@@ -7,7 +7,7 @@ import { useCompanyState, useUserState } from "../../state";
 export async function companyLoginLoader() {
   try {
   
-    const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
+    const response = await axios.get(AUTH_URL.COMPANY, {
       withCredentials: true,
     });
     // update Zustand with backend data
