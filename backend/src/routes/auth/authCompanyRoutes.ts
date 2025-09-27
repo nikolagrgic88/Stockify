@@ -11,9 +11,9 @@ const router = Router();
 router.post("/update-company-password", auth.updateCompanyPassword);
 router.use(companyAuthValidator);
 
-router.post("/", auth.postCompanyLogin);
+router.post("/login", auth.postCompanyLogin);
 router.post("/new", auth.createCompany);
-// router.post("/logout", auth.postUserLogout);
+router.post("/logout", auth.postCompanyLogout);
 
 // router.post("/register", auth.postRegisterUser);
 

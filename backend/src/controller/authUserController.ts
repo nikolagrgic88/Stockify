@@ -55,7 +55,15 @@ export const postUserLogout = async (
   next: NextFunction
 ) => {
   try {
-    res.status(200).json({ message: "User logged out", token: "" });
+    // clear the cookie
+    res.clearCookie("user_auth_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+    });
+
+    res.status(200).json({ message: "User logged out" });
   } catch (error) {
     next(error);
   }
@@ -78,11 +86,11 @@ export const getCurrentUser = async (
 
     if (!user) {
       console.log("not FOund");
-      
+
       res.status(404).json({ message: "User not found!" });
       return;
     }
-    
+
     res.status(200).json({ message: "User found", user });
   } catch (error) {
     next(error);

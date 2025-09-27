@@ -4,7 +4,8 @@ export const AUTH_COMPANY = "/auth/company";
 export const AUTH_USER = "/auth/user";
 
 export const AUTH_URL = {
-  COMPANY: BASE_URL + AUTH_COMPANY,
+  COMPANY_LOGIN: BASE_URL + AUTH_COMPANY + "/login",
+  COMPANY_LOGOUT: BASE_URL + AUTH_COMPANY + "/logout",
   USER_LOGIN: BASE_URL + AUTH_USER + "/login",
   USER_LOGOUT: BASE_URL + AUTH_USER + "/logout",
   USER_REGISTER: BASE_URL + AUTH_USER + "/register",

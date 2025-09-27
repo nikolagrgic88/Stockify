@@ -68,11 +68,20 @@ export const postCompanyLogout = async (
   next: NextFunction
 ) => {
   try {
-    res.status(200).json({ message: "Company logged out", token: "" });
+    // clear the cookie
+    res.clearCookie("company_auth_token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "none",
+      path: "/",
+    });
+
+    res.status(200).json({ message: "User logged out" });
   } catch (error) {
     next(error);
   }
 };
+
 
 export const createCompany = async (
   req: Request,
