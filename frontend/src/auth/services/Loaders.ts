@@ -8,18 +8,22 @@ export async function companyLoginLoader() {
   try {
     const response = await axios.get(AUTH_URL.COMPANY, {
       withCredentials: true,
-      validateStatus: (status) => status < 500,
+      validateStatus: () => true,
     });
-
     if (response.status === 200) {
-      const setCompany = useCompanyState.getState().setCompany;
-      setCompany(response.data);
-
-     
+      // Logged in → update Zustand + redirect
+      useCompanyState.getState().setCompany(response.data);
       return redirect("/auth/user");
     }
 
-    // if not logged in (401) stay on login
+    if (response.status === 401) {
+      // Not logged in yet → just show login page
+      return null;
+    }
+
+    // Any other unexpected status
+    useUserState.getState().logoutUser();
+    useCompanyState.getState().logoutCompany();
     return null;
   } catch {
     useUserState.getState().logoutUser();
