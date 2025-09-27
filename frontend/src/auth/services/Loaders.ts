@@ -6,16 +6,21 @@ import { useCompanyState, useUserState } from "../../state";
 
 export async function companyLoginLoader() {
   try {
-  
     const response = await axios.get(AUTH_URL.COMPANY, {
       withCredentials: true,
+      validateStatus: (status) => status < 500,
     });
-    // update Zustand with backend data
-    const setCompany = useCompanyState.getState().setCompany;
-    setCompany(response.data);
 
-    // redirect to company dashboard
-    return redirect("/auth/user");
+    if (response.status === 200) {
+      const setCompany = useCompanyState.getState().setCompany;
+      setCompany(response.data);
+
+     
+      return redirect("/auth/user");
+    }
+
+    // if not logged in (401) stay on login
+    return null;
   } catch {
     useUserState.getState().logoutUser();
     useCompanyState.getState().logoutCompany();
@@ -26,7 +31,6 @@ export async function companyLoginLoader() {
 
 export async function userLoginLoader() {
   try {
-  
     await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
       withCredentials: true,
     });
