@@ -1,14 +1,14 @@
 import { Dialog, Button, Alert, AlertTitle } from "@mui/material";
 import { useErrorState } from "../../state/errorState";
-import { redirect } from "react-router";
+import { useNavigate } from "react-router";
 
 const GlobalErrorModal = () => {
   const { message, clearError, type, statusCode, error } = useErrorState();
-  
+  const navigate = useNavigate();
   function handleClose() {
     clearError();
     if (statusCode === 401) {
-      redirect("auth/company");
+      navigate("/auth/company");
     }
   }
   return (
