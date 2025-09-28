@@ -29,10 +29,12 @@ export const postUserLogin = async (
     }
     const token = jwt.sign({ userId: user._id }, secret, { expiresIn: "1h" });
 
+    const isProd = process.env.NODE_ENV === "production";
+
     res.cookie("user_auth_token", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      sameSite: "none",
+      secure: isProd, // true in Render
+      sameSite: isProd ? "none" : "lax",
       path: "/",
       maxAge: 60 * 60 * 1000,
     });
