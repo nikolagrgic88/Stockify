@@ -5,32 +5,24 @@ import { redirect } from "react-router";
 import { useCompanyState, useUserState } from "../../state";
 
 export async function companyLoginLoader() {
-  try {
-    const response = await axios.post(AUTH_URL.COMPANY_LOGIN, {
-      withCredentials: true,
-      validateStatus: () => true,
-    });
-    if (response.status === 200) {
-      // Logged in → update Zustand + redirect
-      useCompanyState.getState().setCompany(response.data);
-      return redirect("/auth/user");
-    }
+  const state = useCompanyState.getState();
 
-    if (response.status === 401) {
-      // Not logged in yet → just show login page
-      return null;
-    }
-
-    // Any other unexpected status
-    useUserState.getState().logoutUser();
-    useCompanyState.getState().logoutCompany();
-    return null;
-  } catch {
-    useUserState.getState().logoutUser();
-    useCompanyState.getState().logoutCompany();
-
-    return null;
+  if (state.isCompanyAuthenticated) {
+    return redirect("/auth/user");
   }
+
+  // fallback to server check if not in memory
+  const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
+    withCredentials: true,
+    validateStatus: () => true,
+  });
+
+  if (response.status === 200) {
+    state.setCompany(response.data);
+    return redirect("/auth/user");
+  }
+
+  return null;
 }
 
 export async function userLoginLoader() {

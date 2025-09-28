@@ -33,12 +33,12 @@ const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // allow Postman
+      if (!origin) return callback(null, true); // Postman or server-side
       if (allowedOrigins.indexOf(origin) === -1) {
         const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
-        return callback(new Error(msg), false);
+        return callback(new Error(msg));
       }
-      return callback(null, true);
+      return callback(null, origin);
     },
     credentials: true,
   })

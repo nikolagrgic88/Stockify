@@ -82,7 +82,6 @@ export const postCompanyLogout = async (
   }
 };
 
-
 export const createCompany = async (
   req: Request,
   res: Response,
