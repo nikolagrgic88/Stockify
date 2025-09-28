@@ -6,7 +6,7 @@ import { useCompanyState, useUserState } from "../../state";
 
 export async function companyLoginLoader() {
   try {
-    const response = await axios.get(AUTH_URL.COMPANY_LOGIN, {
+    const response = await axios.post(AUTH_URL.COMPANY_LOGIN, {
       withCredentials: true,
       validateStatus: () => true,
     });
