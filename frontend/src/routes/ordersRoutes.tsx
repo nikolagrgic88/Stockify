@@ -1,13 +1,12 @@
-import {
-  fetchAllOrdersLoader,
-  newOrderAction,
-  NewOrderPage,
-  OrderActionPage,
-  OrdersDashboardPage,
-  OrdersPage,
-} from "../orders";
+import { fetchAllOrdersLoader, newOrderAction } from "../orders";
 import { actionCombinedPickingOrderAction } from "../orders/services/actions";
 import { queryClient } from "../shared";
+import {
+  NewOrderPage,
+  OrdersActionPage,
+  OrdersDashboardPage,
+  OrdersPage,
+} from "./components/ordersComponents";
 
 export const ordersRoutes = {
   path: "orders",
@@ -20,7 +19,7 @@ export const ordersRoutes = {
       children: [
         {
           path: "new-action",
-          element: <OrderActionPage />,
+          element: <OrdersActionPage />,
           action: actionCombinedPickingOrderAction(queryClient),
         },
       ],

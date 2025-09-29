@@ -3,7 +3,7 @@ import { PageCard } from "../../shared";
 
 import UpdateUser from "../components/UpdateUser";
 
-const EditUser = () => {
+const EditUserPage = () => {
   return (
     <PageCard>
       <Typography variant="h1" typography={"h4"} marginBottom={"1rem"}>
@@ -14,4 +14,4 @@ const EditUser = () => {
   );
 };
 
-export default EditUser;
+export default EditUserPage;

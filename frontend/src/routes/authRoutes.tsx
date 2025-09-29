@@ -1,12 +1,11 @@
 import { Navigate } from "react-router";
+import { CompanyFormAction, UserFormAction } from "../auth";
+import { companyLoginLoader, userLoginLoader } from "../auth/services/Loaders";
 import {
   AuthPage,
-  CompanyFormAction,
   CompanyLoginPage,
-  UserFormAction,
   UserLoginPage,
-} from "../auth";
-import { companyLoginLoader, userLoginLoader } from "../auth/services/Loaders";
+} from "./components/authComponents";
 
 export const authRoutes = {
   path: "auth",

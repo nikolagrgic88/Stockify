@@ -13,16 +13,10 @@ import {
   deleteItemInLocation,
 } from "./services/api";
 import ItemsTable from "./components/ItemsTable";
-import ItemsDashboardPage from "./pages/ItemsDashboardPage";
-import FindItemsPage from "./pages/FindItemsPage ";
 import ItemsContainer from "./components/ItemsContainer";
 import ItemDetailsPage from "./pages/ItemDetailsPage";
-import NewItemPage from "./pages/NewItemPage";
 
 export {
-  ItemsDashboardPage,
-  FindItemsPage,
-  NewItemPage,
   ItemsContainer,
   ItemsTable,
   fetchItems,

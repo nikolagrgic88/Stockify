@@ -1,13 +1,12 @@
 import { locationLoader } from "../locations/services/loaders";
-import {
-  MovementsDashboardPage,
-  MovementHistoryPage,
-  NewMovementPage,
-  moveItemAction,
-  getAllMovementsLoader,
-} from "../movements";
+import { moveItemAction, getAllMovementsLoader } from "../movements";
 
 import { queryClient } from "../shared";
+import {
+  MovementHistoryPage,
+  MovementsDashboardPage,
+  NewMovementPage,
+} from "./components/movementsComponents";
 
 export const movementRoutes = {
   path: "movements",

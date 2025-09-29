@@ -2,15 +2,13 @@ import { RouteObject } from "react-router";
 import {
   createNewItem,
   deleteItemAction,
-  ItemDetailsPage,
   itemDetailsUpdateAction,
-  ItemsDashboardPage,
   itemsLoader,
-  NewItemPage,
 } from "../items";
 import FindItemsPage from "../items/pages/FindItemsPage ";
 import { DeletePage, queryClient } from "../shared";
 import { DELETE_ITEM } from "../shared/constants/dialogText";
+import { ItemDetailsPage, ItemsDashboardPage, NewItemPage } from "./components/itemsComponents";
 
 export const itemsRoutes: RouteObject = {
   path: "items",

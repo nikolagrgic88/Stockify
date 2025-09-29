@@ -1,18 +1,21 @@
 import { queryClient } from "../shared";
 import {
   AddNewUserAction,
-  AddUserPage,
-  EditUser,
   UserFilterAction,
-  UserListPage,
   UserLoader,
-  UsersPage,
   UserUpdateAction,
 } from "../users";
 
+import {
+  AddUserPage,
+  EditUserPage,
+  UserListPage,
+  UsersDashboardPage,
+} from "./components/usersComponents";
+
 export const userRoutes = {
   path: "users",
-  element: <UsersPage />,
+  element: <UsersDashboardPage />,
   action: UserFilterAction,
   children: [
     {
@@ -23,7 +26,7 @@ export const userRoutes = {
       children: [
         {
           path: "edit",
-          element: <EditUser />,
+          element: <EditUserPage />,
           action: UserUpdateAction(queryClient),
         },
       ],

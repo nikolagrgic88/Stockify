@@ -1,8 +1,4 @@
 import {
-  FindLocationPage,
-  LocationDashboardPage,
-  NewLocationPage,
-  LocationDetailsPage,
   inventoryLoaderById,
   updateLocationAction,
   createNewLocatioAction,
@@ -11,6 +7,12 @@ import {
 import { locationLoader } from "../locations/services/loaders";
 import { DeletePage, queryClient } from "../shared";
 import { DELETE_LOCATION } from "../shared/constants/dialogText";
+import {
+  FindLocationPage,
+  LocationDashboardPage,
+  LocationDetailsPage,
+  NewLocationPage,
+} from "./components/locationComponents";
 
 export const locationRoutes = {
   path: "location",

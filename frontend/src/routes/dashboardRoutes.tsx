@@ -1,6 +1,6 @@
-import { Dashboard } from "../dashboard";
 import { dashboardStatLoader } from "../dashboard/services/loaders";
 import { queryClient } from "../shared";
+import { Dashboard } from "./components/dashboardComponents";
 
 export const dashboardRoutes = {
   path: "dashboard",

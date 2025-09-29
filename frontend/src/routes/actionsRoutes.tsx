@@ -1,16 +1,15 @@
-import {
-  // ActionDashboardPage,
-  ActionedOrdersPage,
-  ActionMultiOrdersPage,
-  ActionsDashboardPage,
-  ActionSingleOrdersPage,
-} from "../actions";
 import PickingListPage from "../actions/pages/PickingListPage";
 import {
   createMultiItemOrderListAction,
   createSingleItemOrderListAction,
 } from "../actions/services/actions";
 import { queryClient } from "../shared";
+import {
+  ActionedOrdersPage,
+  ActionMultiOrdersPage,
+  ActionsDashboardPage,
+  ActionSingleOrdersPage,
+} from "./components/actionsComponents";
 
 export const actionsRoutes = {
   path: "actions/Orders",
