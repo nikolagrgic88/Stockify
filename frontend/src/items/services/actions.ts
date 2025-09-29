@@ -63,7 +63,7 @@ export const createNewItem =
       const newItemDetails = {
         ...Object.fromEntries(data.entries()),
       } as unknown as Item;
-      console.log(locations);
+      
 
       const quantity = locations.reduce(
         (prev: number, loc: { quantity: number }) => prev + loc.quantity,

@@ -48,7 +48,7 @@ const UserListPage = () => {
       setUserFilteredSearch(filteredUsers);
     }
   }, [actionData, users, setUserFilteredSearch]);
-  console.log(isCurrentPage);
+
   useEffect(() => {
     if (data?.users && userFilteredSearch.length > 0) {
       const filteredUsers = data.users.filter((user) =>

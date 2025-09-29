@@ -28,7 +28,7 @@ export const fetchItems = async ({ signal }: { signal: AbortSignal }) => {
     withCredentials: true,
     signal,
   });
-  console.log("DATA RECEIVED", items);
+
   return items.data;
 };
 

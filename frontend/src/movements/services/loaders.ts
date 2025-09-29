@@ -8,7 +8,7 @@ export const getAllMovementsLoader = (queryClient: QueryClient) => async () => {
       fetchMovements({ signal }),
   });
   queryClient.setQueryData(["movements"], movements);
-  console.log("LOADER", movements);
+
 
   return movements;
 };

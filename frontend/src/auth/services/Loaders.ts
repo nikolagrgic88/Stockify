@@ -30,7 +30,6 @@ export async function userLoginLoader() {
     await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
       withCredentials: true,
     });
-    console.log("pass");
   } catch {
     useUserState.getState().logoutUser();
     useCompanyState.getState().logoutCompany();
@@ -61,12 +60,8 @@ export async function userLoginLoader() {
   } catch {
     const { isCompanyAuthenticated } = useCompanyState.getState();
     if (isCompanyAuthenticated) {
-      console.log("fail");
-
       return null;
     } else {
-      console.log("secongd");
-
       return redirect("/auth/company");
     }
   }

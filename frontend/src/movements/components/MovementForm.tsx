@@ -34,7 +34,7 @@ export const MovementForm = ({
 }: LocationFormFieldsProps) => {
   const [isItemInLocation, setIsItemInLocation] = useState(!items?.length);
   const { _id } = useUserState((state) => state);
-  console.log(_id);
+
 
   const handleSelectedItem = (e: React.ChangeEvent<HTMLInputElement>) => {
     const itemId = e.target.value;

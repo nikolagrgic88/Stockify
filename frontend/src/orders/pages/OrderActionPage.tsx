@@ -20,10 +20,6 @@ const OrderActionPage = () => {
 
   const actionData = useActionData();
 
-  // const { data } = useQuery({
-  //   queryKey: ["picking-lists"],
-  //   queryFn: ({ signal }: { signal: AbortSignal }) => fetchItems({ signal }),
-  // });
   const fetchUsersCallback = useCallback(
     async ({ signal }: { signal: AbortSignal }) => {
       const response = await fetchUsers({ signal });

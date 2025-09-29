@@ -43,7 +43,7 @@ export const fetchLocation = async ({ signal }: { signal: AbortSignal }) => {
     withCredentials: true,
     signal,
   });
-  console.log("DATA RECEIVED", location);
+
 
   return location.data;
 };

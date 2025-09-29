@@ -21,7 +21,6 @@ const UserFormAction = async ({ request }: ActionFunctionArgs) => {
     );
 
     const setUser = useUserState.getState().setUser;
-    console.log("USER", response.data.user);
 
     setUser(response.data.user);
     return redirect("/home/dashboard");

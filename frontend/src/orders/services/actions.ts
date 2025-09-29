@@ -13,7 +13,7 @@ export const newOrderAction =
       const shippingAddress = JSON.parse(
         formData.get("shippingAddress") as string
       ) as Order["customer"]["shippingAddress"];
-      console.log(JSON.parse(formData.get("items") as string));
+
 
       // Example combined object:
       const order = {

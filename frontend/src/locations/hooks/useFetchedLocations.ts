@@ -21,7 +21,7 @@ export const useFetchLocations = () => {
             fetchLocation({ signal }),
         });
         setLocations(locationsResponse.locations as LocationOption[]);
-        console.log("LOCATIONS", locationsResponse);
+       
       } catch (error) {
         setError("Failed to fetch locations");
         console.error(error);

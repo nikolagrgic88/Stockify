@@ -10,7 +10,6 @@ import {
 import { TextField } from "@mui/material";
 import { OrderActionCard, SearchListField } from "../../orders";
 import { useQuery } from "@tanstack/react-query";
-import { useActionData } from "react-router";
 
 type ActionOrdersProps = {
   formName: string;
@@ -34,9 +33,7 @@ const ActionOrders = ({ formName }: ActionOrdersProps) => {
     queryKey: ["users"],
     queryFn: ({ signal }: { signal: AbortSignal }) => fetchUsers({ signal }),
   });
-  console.log("ERROR", error);
-  const ad = useActionData();
-  console.log("AD", ad);
+ 
   return (
     <OrderActionCard formName={formName}>
       {error && (

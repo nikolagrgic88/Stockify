@@ -4,8 +4,6 @@ import api from "../../shared/services/axiosInstance";
 
 export async function requireAuthLoader() {
   try {
-    console.log("its in auth");
-
     await api.post(AUTH_URL.USER_AUTH_ME);
     return null;
   } catch {

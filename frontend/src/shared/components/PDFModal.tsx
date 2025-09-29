@@ -22,9 +22,6 @@ const PDFModal = ({ data }: PDFModalProps) => {
     return <GlobalLoader />;
   }
 
-  data.pickingList.listItems.map((i) =>
-    i.locations.map((l) => console.log(l.location.name))
-  );
   return (
     <AppModal modalTitle="Generate PDF Picking List" onCloseNavigateTo="..">
       <div className="p-6">

@@ -34,7 +34,7 @@ export const fetchInventoryById = async ({
     withCredentials: true,
     signal,
   });
-  console.log("API", inventory);
+
 
   return inventory.data;
 };

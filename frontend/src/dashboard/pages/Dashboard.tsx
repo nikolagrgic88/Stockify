@@ -34,8 +34,6 @@ export default function Dashboard() {
     queryFn: ({ signal }: { signal: AbortSignal }) => fetchUsers({ signal }),
   });
 
-  console.log("userData:", userData);
-  console.log("Data:", data);
 
   // Prepare combined data for the bar chart
   const combinedUsersData = useMemo(() => {

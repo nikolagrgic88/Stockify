@@ -97,7 +97,7 @@ export const createMultiItemOrderListAction =
         notes: safeParse(data.get("notes") as string),
         ordersInList: safeParse(data.get("numberOfOrders") as string),
       };
-      console.log(formData);
+    
 
       const list: IPickingList = await createMultiItemPickingList(formData);
       await queryClient.invalidateQueries({

@@ -27,6 +27,8 @@ declare module "express-serve-static-core" {
 export const jwtVerification = (userType: "company" | "user") => {
   return (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"];
+ 
+    
     const token =
       authHeader && authHeader.split(" ")[1]
         ? authHeader.split(" ")[1]

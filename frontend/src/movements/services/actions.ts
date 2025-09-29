@@ -14,7 +14,7 @@ export const moveItemAction =
       const userId = formData.get("userId") as string;
       const productId = formData.get("item") as string;
       const quantity = Number(formData.get("quantity"));
-      console.log("F",fromLocationId, "TO",toLocationId, "ID",userId, "PRD",productId, quantity);
+   
 
       if (
         !fromLocationId ||
@@ -32,7 +32,7 @@ export const moveItemAction =
         userId,
         items: [{ productId, quantity }],
       };
-      console.log("MOVEMENT DATA", movementData);
+
 
       const movement = await createMovement(movementData);
 

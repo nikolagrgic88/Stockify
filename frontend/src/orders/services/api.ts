@@ -8,13 +8,6 @@ type OrderResponseProps = {
   orders: Order[];
 };
 
-// type CombinedPickingListProps = {
-//   asignTo: string;
-//   priority: string;
-//   notes: string;
-//   orders: string;
-// };
-
 export const fetchAllOrders = async ({ signal }: { signal?: AbortSignal }) => {
   const url = API_ORDERS_URL;
   const orders = await api.get(url, { withCredentials: true, signal });

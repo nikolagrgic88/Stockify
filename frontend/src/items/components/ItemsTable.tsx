@@ -58,7 +58,7 @@ const ItemsTable = ({
       headerName: "Quantity",
       flex: 1,
       valueGetter: (_, row) => {
-        console.log("ROW DATA", row);
+       
         return isInventoryData
           ? (row as LocationInventory).quantity
           : (row as Item).totalQuantity;

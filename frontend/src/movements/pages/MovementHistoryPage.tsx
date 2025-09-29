@@ -18,7 +18,7 @@ const MovementHistoryPage: React.FC = () => {
     queryFn: ({ signal }: { signal: AbortSignal }) =>
       fetchMovements({ signal }),
   });
-  console.log("Movements", data);
+
   const movements = data.movements;
   const columns: GridColDef[] = [
     {
