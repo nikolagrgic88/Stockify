@@ -26,6 +26,21 @@ declare module "express-serve-static-core" {
 
 export const jwtVerification = (userType: "company" | "user") => {
   return (req: Request, res: Response, next: NextFunction) => {
+    console.log("=== /me Request Debug ===");
+    console.log("Headers:", req.headers);
+    console.log("Cookies:", req.cookies); // <-- important
+    console.log("Authorization header:", req.headers["authorization"]);
+
+    if (!req.cookies || !req.cookies.company_auth_token) {
+      return res.status(401).json({
+        message: "Unauthorized: No token provided",
+        debug: {
+          cookies: req.cookies,
+          headers: req.headers,
+        },
+      });
+    }
+
     const authHeader = req.headers["authorization"];
     const token =
       authHeader && authHeader.split(" ")[1]
