@@ -30,16 +30,25 @@ app.use(express.json());
 // app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
 
+// index.ts
+
 app.use(
   cors({
     origin: function (origin, callback) {
-      if (!origin) return callback(null, true); // Postman or server-side
+      // 1. Allow requests with no origin (e.g., Postman, internal server tools)
+      if (!origin) return callback(null, true); 
+
+      // 2. Check if the incoming origin is in the allowed list
       if (allowedOrigins.indexOf(origin) === -1) {
         const msg = `The CORS policy for this site does not allow access from the specified Origin.`;
+        // Reject the request
         return callback(new Error(msg));
       }
-      return callback(null, origin);
+
+      // 3. 🚨 FIX: Allow the request by passing 'true'
+      return callback(null, true);
     },
+    // CRITICAL for cross-site cookies
     credentials: true,
   })
 );

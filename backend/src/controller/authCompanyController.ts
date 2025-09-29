@@ -16,6 +16,9 @@ export const postCompanyLogin = async (
 ) => {
   const { companyId, password } = req.body;
   const secret = process.env.COMPANY_JWT_SECRET as string;
+  console.log("COMPANY id", companyId);
+  console.log("SECRET", secret);
+
   try {
     if (!mongoose.Types.ObjectId.isValid(companyId)) {
       res.status(400).json({ message: "Invalid Company Id" });
@@ -58,7 +61,9 @@ export const postCompanyLogin = async (
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res.status(200).json({ companyName: company.name, dbURI: company.dbURI });
+    res
+      .status(200)
+      .json({ companyName: company.name, dbURI: company.dbURI, token });
   } catch (error) {
     next(error);
   }
