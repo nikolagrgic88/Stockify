@@ -11,17 +11,6 @@ export async function companyLoginLoader() {
     return redirect("/auth/user");
   }
 
-  // fallback to server check if not in memory
-  const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
-    withCredentials: true,
-    validateStatus: () => true,
-  });
-
-  if (response.status === 200) {
-    state.setCompany(response.data);
-    return redirect("/auth/user");
-  }
-
   return null;
 }
 
