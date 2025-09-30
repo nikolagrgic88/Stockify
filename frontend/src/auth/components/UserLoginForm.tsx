@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Form, useActionData, useNavigation } from "react-router";
+import { useThemeState } from "../../state";
 
 const UserLoginForm: React.FC = () => {
   const [error, setError] = useState<string>("");
   const errorData = useActionData();
+  const { theme } = useThemeState((state) => state);
 
   useEffect(() => {
     if (errorData) {
@@ -25,7 +27,9 @@ const UserLoginForm: React.FC = () => {
           required
           autoFocus
           aria-labelledby="email-label"
-          className={`px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  focus:ring-indigo-500 ${
+          className={`${
+            theme === "dark" && "text-black"
+          } px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  focus:ring-indigo-500 ${
             error && "outline-none ring-1 ring-red-500 "
           }`}
           onFocus={() => setError("")}
@@ -40,8 +44,8 @@ const UserLoginForm: React.FC = () => {
           id="password"
           name="password"
           aria-labelledby="password-label"
-          className={`px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  focus:ring-indigo-500 ${
-            error && "outline-none ring-1 ring-red-500 "
+          className={`px-3 py-2 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:focus:ring-indigo-400 ${
+            error && "outline-none ring-1 ring-red-500 dark:ring-red-400"
           }`}
           onFocus={() => setError("")}
         />

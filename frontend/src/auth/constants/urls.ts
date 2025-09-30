@@ -1,4 +1,4 @@
-import { BASE_URL } from "../../shared";
+const BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const AUTH_COMPANY = "/auth/company";
 export const AUTH_USER = "/auth/user";

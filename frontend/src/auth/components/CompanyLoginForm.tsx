@@ -1,9 +1,11 @@
 import { Form, useActionData, useNavigation } from "react-router";
 import { useEffect, useState } from "react";
+import { useThemeState } from "../../state";
 
 const CompanyLoginForm: React.FC = () => {
   const [error, setError] = useState<string>("");
   const errorData = useActionData();
+  const { theme } = useThemeState((state) => state);
 
   const navigation = useNavigation();
   useEffect(() => {
@@ -24,7 +26,9 @@ const CompanyLoginForm: React.FC = () => {
           required
           aria-labelledby="companyId-label"
           autoFocus
-          className={`px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  focus:ring-indigo-500 ${
+          className={`${
+            theme === "dark" && "text-black"
+          }  px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1  focus:ring-indigo-500  ${
             error && "outline-none ring-1 ring-red-500 "
           }`}
           onFocus={() => setError("")}
