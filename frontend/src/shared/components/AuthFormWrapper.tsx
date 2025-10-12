@@ -12,14 +12,14 @@ const AuthFormWrapper = ({
   className,
   form,
 }: AuthFormWrapperProps) => {
-  const { companyName } = useCompanyState((state) => state);
+  const { name } = useCompanyState((state) => state);
 
   return (
     <div
       className={`border-solid border-2 border-indigo-700 rounded-md px-9 pb-12 pt-22  inline-block min-w-96  space-y-4 ${className}`}
     >
-      {companyName && (
-        <h2 className="font-medium text-l text-center mt-5 ">{companyName}</h2>
+      {name && (
+        <h2 className="font-medium text-l text-center mt-5 ">{name}</h2>
       )}
       <h2 className="font-medium text-xl text-center mt-5 ">
         Stockify {form} Login
