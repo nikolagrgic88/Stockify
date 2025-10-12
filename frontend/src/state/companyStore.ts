@@ -4,8 +4,7 @@ import { persist } from "zustand/middleware";
 interface CompanyState {
   token: string;
   dbURI: string;
-  companyName: string;
-  companyId: string;
+  name: string;
   isCompanyAuthenticated: boolean;
   setCompany: (company: Partial<CompanyState>) => void;
   logoutCompany: () => void;
@@ -17,19 +16,22 @@ export const useCompanyState = create<CompanyState>()(
     (set) => ({
       token: "",
       dbURI: "",
-      companyName: "",
+      name: "",
       isCompanyAuthenticated: false,
-      companyId: "",
       setCompany: (company) =>
         set(() => ({
-          companyName: company.companyName,
+          name: company.name,
           token: company.token,
           dbURI: company.dbURI,
-          companyId: company.companyId,
           isCompanyAuthenticated: true,
         })),
       logoutCompany: () =>
-        set({ isCompanyAuthenticated: false, dbURI: "", companyName: "" }),
+        set({
+          isCompanyAuthenticated: false,
+          dbURI: "",
+          name: "",
+          token: "",
+        }),
       clearToken: () => set({ token: "" }),
     }),
     {

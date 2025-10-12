@@ -8,7 +8,7 @@ import { verifyCompanyToken } from "../../middleware/authMiddleware";
 // import { csrfProtection } from "../../middleware/authMiddleware";
 
 const router = Router();
-router.post("/update-company-password", auth.updateCompanyPassword);
+router.post("/password-update", auth.updateCompanyPassword);
 router.use(companyAuthValidator);
 
 router.post("/login", auth.postCompanyLogin);

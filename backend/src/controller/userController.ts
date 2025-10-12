@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import User, { IUser } from "../models/user";
-import bcrypts from "bcryptjs";
+import * as argon2 from "argon2";
 import { userUpdatesLogger } from "../services/userService";
 
 export const getUserByFilter = async (
@@ -148,7 +148,11 @@ export const createUser = async (
       existingUser = await User.findOne({ userName });
       randomNumber++;
     }
-    const hashPassword = await bcrypts.hash(password, 12);
+    const cleanPassword = String(password).trim();
+    const hashPassword = await argon2.hash(cleanPassword);
+
+    console.log("PASSWORD", password);
+    console.log("EMAIL", email);
 
     const newUser = new User({
       firstName,
@@ -182,7 +186,6 @@ export const updateUserById = async (
   const updatedData = { ...receivedData } as Partial<IUser>;
 
   try {
-    // delete updatedData?.createdAt;
     delete updatedData?.userName;
     delete updatedData?.password;
 
@@ -244,10 +247,10 @@ export const updateUsersPassword = async (
   next: NextFunction
 ) => {
   const userId = req.params.userId;
-  const { oldPassword, newPassword } = req.body;
-  try {
-    console.log("ID", userId);
+  const { newPassword } = req.body;
 
+  console.log("PASSWORD", newPassword);
+  try {
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ message: "User not found!" });
@@ -258,7 +261,9 @@ export const updateUsersPassword = async (
     //   res.status(401).json({ message: "Invalid password!" });
     //   return;
     // }
-    const hashPassword = await bcrypts.hash(newPassword, 12);
+    const cleanPassword = String(newPassword).trim();
+    const hashPassword = await argon2.hash(cleanPassword);
+
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       { password: hashPassword },
@@ -269,7 +274,7 @@ export const updateUsersPassword = async (
       return;
     }
 
-    userUpdatesLogger({ password: hashPassword }, userId)(req, res, next);
+    // userUpdatesLogger({ password: hashPassword }, userId)(req, res, next);
     res.status(200).json({ message: "Password updated successfully!" });
   } catch (error) {
     next(error);

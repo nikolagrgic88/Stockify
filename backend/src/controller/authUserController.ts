@@ -1,5 +1,5 @@
 // import bcrypt from "bcrypt";
-import bcrypt from "bcryptjs";
+import * as argon2 from "argon2";
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 import User, { IUser } from "../models/user";
@@ -13,6 +13,8 @@ export const postUserLogin = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
+ 
+
   const secret = process.env.USER_JWT_SECRET as string;
   try {
     const user = (await User.findOne({ email })) as IUser;
@@ -20,8 +22,11 @@ export const postUserLogin = async (
       res.status(404).json({ message: "User not found!" });
       return;
     }
+    const cleanPassword = String(password).trim();
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+ 
+
+    const isPasswordValid = await argon2.verify(user.password, cleanPassword);
 
     if (!isPasswordValid) {
       res.status(401).json({ message: "Invalid password!" });

@@ -40,6 +40,7 @@ export const useUserState = create<UserState>()(
             _id: "",
             isUserAuthenticated: false,
           }),
+          
       }),
       {
         name: "user-storage",

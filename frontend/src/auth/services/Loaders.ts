@@ -51,6 +51,7 @@ export async function userLoginLoader() {
     if (isCompanyAuthenticated) {
       return null;
     } else {
+      useUserState.getState().logoutUser();
       return redirect("/auth/company");
     }
   }

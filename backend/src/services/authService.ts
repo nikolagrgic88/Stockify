@@ -27,8 +27,7 @@ declare module "express-serve-static-core" {
 export const jwtVerification = (userType: "company" | "user") => {
   return (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"];
- 
-    
+
     const token =
       authHeader && authHeader.split(" ")[1]
         ? authHeader.split(" ")[1]
@@ -36,8 +35,9 @@ export const jwtVerification = (userType: "company" | "user") => {
     console.log("TOKEN,", token);
 
     if (!token) {
-      res.status(401).json({ message: "Unauthorized: No token provided" }); // 401 for missing token
-      return;
+      return res
+        .status(401)
+        .json({ message: "Unauthorized: No token provided" }); // 401 for missing token
     }
 
     const secret =
@@ -46,8 +46,7 @@ export const jwtVerification = (userType: "company" | "user") => {
         : process.env.USER_JWT_SECRET;
 
     if (!secret) {
-      res.status(500).json({ message: "JWT secret is not defined." });
-      return;
+      return res.status(500).json({ message: "JWT secret is not defined." });
     }
 
     jwt.verify(token, secret, (err: jwt.VerifyErrors | null, decoded: any) => {

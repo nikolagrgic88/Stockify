@@ -8,7 +8,7 @@ import { fetchUsers } from "../../users/services/api";
 import { useMemo } from "react";
 import { PageCard } from "../../shared";
 
-type DashboardStats = {
+export type DashboardStats = {
   emptyLocationsPerAisle: { emptyCount: string; section: string }[];
   locationCount: number;
   pendingOrderCount: number;
@@ -33,7 +33,6 @@ export default function Dashboard() {
     queryKey: ["users"],
     queryFn: ({ signal }: { signal: AbortSignal }) => fetchUsers({ signal }),
   });
-
 
   // Prepare combined data for the bar chart
   const combinedUsersData = useMemo(() => {
@@ -88,6 +87,7 @@ export default function Dashboard() {
         <Typography variant="h5" component="h1" className="text-center pb-10">
           Warehouse Dashboard
         </Typography>
+        {/* Top Bar */}
         <Box display="flex" gap={2} mb={4}>
           {[
             { label: "Total Products", value: data?.productCount },
@@ -105,7 +105,9 @@ export default function Dashboard() {
             </Box>
           ))}
         </Box>
+
         <div className="flex gap-5">
+          {/* Location Graf */}
           <Box display={"flex"} flex={1} gap={10}>
             <Paper elevation={3} sx={{ padding: 2, width: "100%" }}>
               <Typography variant="h6" gutterBottom>
@@ -141,6 +143,8 @@ export default function Dashboard() {
             </Paper>
           </Box>
 
+          {/* Users Graph */}
+
           <Box display={"flex"} flex={1} gap={10}>
             <Paper elevation={3} sx={{ padding: 2, width: "100%" }}>
               <Typography variant="h6" gutterBottom>
@@ -148,6 +152,7 @@ export default function Dashboard() {
               </Typography>
 
               <BarChart
+                slotProps={{ tooltip: { trigger: "item" } }}
                 xAxis={[
                   {
                     scaleType: "band",

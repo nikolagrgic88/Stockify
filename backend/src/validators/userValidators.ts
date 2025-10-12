@@ -21,12 +21,13 @@ export const createUserValidation = [
     .withMessage("Email is requried")
     .toLowerCase()
     .isEmail()
-    .normalizeEmail()
-    .withMessage("Email is invalid"),
+    .normalizeEmail({
+      gmail_remove_dots: false,
+      gmail_remove_subaddress: false,
+    }),
   body("password")
     .trim()
     .notEmpty()
-    .toLowerCase()
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),
   body("position")
@@ -49,7 +50,6 @@ export const createUserValidation = [
   body("phoneNumber")
     .optional()
     .trim()
-    .toLowerCase()
     .isMobilePhone("any")
     .withMessage("Invalid phone number"),
   body("isActive")
@@ -93,7 +93,11 @@ export const updateUserValidation = [
     .trim()
     .toLowerCase()
     .isEmail()
-    .withMessage("Email is invalid"),
+    .withMessage("Email is invalid")
+    .normalizeEmail({
+      gmail_remove_dots: false,
+      gmail_remove_subaddress: false,
+    }),
   body("auth")
     .optional()
     .trim()
@@ -103,7 +107,6 @@ export const updateUserValidation = [
   body("phoneNumber")
     .optional()
     .trim()
-    .toLowerCase()
     .isMobilePhone("any")
     .withMessage("Invalid phone number"),
 ];
@@ -114,14 +117,8 @@ export const passwordUpdateValidation = [
     .toLowerCase()
     .isMongoId()
     .withMessage("User ID must be a valid MongoDB ObjectId"),
-  body("oldPassword")
-    .trim()
-    .toLowerCase()
-    .isLength({ min: 6 })
-    .withMessage("Password must be at least 6 characters long"),
   body("newPassword")
     .trim()
-    .toLowerCase()
     .isLength({ min: 6 })
     .withMessage("Password must be at least 6 characters long"),
 ];

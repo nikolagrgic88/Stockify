@@ -14,7 +14,7 @@
   "description": "",
   "dependencies": {
     "@types/cors": "^2.8.17",
-    "bcryptjs": "^2.4.3",
+    "argon2": "^0.44.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "csurf": "^1.10.0",
@@ -26,7 +26,6 @@
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
-    "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.9",
     "@types/csurf": "^1.11.5",
     "@types/express": "^5.0.3",

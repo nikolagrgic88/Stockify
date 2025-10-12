@@ -1,7 +1,7 @@
 import { ICompanyDatabase } from "./../models/companyDatabase";
 import { NextFunction, Request, Response } from "express";
 // import bcrypt from "bcrypt"; // changed from "bcryptjs"
-import bcrypt from "bcryptjs";
+import * as argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import CompanyDatabase from "../models/companyDatabase";
 import dotenv from "dotenv";
@@ -16,8 +16,6 @@ export const postCompanyLogin = async (
 ) => {
   const { companyId, password } = req.body;
   const secret = process.env.COMPANY_JWT_SECRET as string;
-  console.log("COMPANY id", companyId);
-  console.log("SECRET", secret);
 
   try {
     if (!mongoose.Types.ObjectId.isValid(companyId)) {
@@ -33,8 +31,9 @@ export const postCompanyLogin = async (
       res.status(404).json({ message: "Company not found!" });
       return;
     }
+    console.log("COMPANY", company);
 
-    const isPasswordValid = await bcrypt.compare(password, company.password);
+    const isPasswordValid = await argon2.verify(company.password, password);
 
     if (!isPasswordValid) {
       res.status(401).json({ message: "Invalid password!" });
@@ -61,9 +60,11 @@ export const postCompanyLogin = async (
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    res
-      .status(200)
-      .json({ companyName: company.name, dbURI: company.dbURI, token });
+    res.status(200).json({
+      name: company.name,
+      dbURI: company.dbURI,
+      token,
+    });
   } catch (error) {
     next(error);
   }
@@ -95,9 +96,9 @@ export const createCompany = async (
   next: NextFunction
 ) => {
   const { companyURI, password } = req.body;
-  const saultRounds = bcrypt.genSaltSync(12);
+
   try {
-    const hashedPassword = await bcrypt.hash(password, saultRounds);
+    const hashedPassword = await argon2.hash(password);
 
     const company = new CompanyDatabase({
       dbURI: companyURI,
@@ -150,8 +151,7 @@ export const updateCompanyPassword = async (
     return;
   }
   try {
-    const saultRounds = bcrypt.genSaltSync(12);
-    const hashedPassword = await bcrypt.hash(newPassword, saultRounds);
+    const hashedPassword = await argon2.hash(newPassword);
 
     const updatedCompany = await CompanyDatabase.findByIdAndUpdate(
       companyId,

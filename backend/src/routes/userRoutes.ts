@@ -6,10 +6,14 @@ import { errorValidationService } from "../services/errorValidationService";
 
 const router = Router();
 
-router.use(verifyUserToken);
-
 // router.get("/", user.getAllUsers); TODO: DELETE THIS ROUTE
-
+router.put(
+  "/:userId/passwordUpdate",
+  validation.passwordUpdateValidation,
+  errorValidationService,
+  user.updateUsersPassword
+);
+router.use(verifyUserToken);
 router.post(
   "/new-user",
   validation.createUserValidation,
@@ -37,11 +41,6 @@ router.delete(
   errorValidationService,
   user.deleteUserById
 );
-router.put(
-  "/:userId/passwordUpdate",
-  validation.passwordUpdateValidation,
-  errorValidationService,
-  user.updateUsersPassword
-);
+
 router.patch("/:userId/password-update", user.updateUsersPassword);
 export default router;

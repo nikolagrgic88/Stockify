@@ -24,8 +24,8 @@ dotenv.config();
 const app: Application = express();
 
 app.use(cookieParser());
-app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 // const FRONTEND_URL = process.env.FRONTEND_URL || "http://localhost:5173";
 // app.use(cors({ origin: FRONTEND_URL, credentials: true }));
 const allowedOrigins = process.env.FRONTEND_URLS?.split(",") || [];
@@ -36,7 +36,7 @@ app.use(
   cors({
     origin: function (origin, callback) {
       // 1. Allow requests with no origin (e.g., Postman, internal server tools)
-      if (!origin) return callback(null, true); 
+      if (!origin) return callback(null, true);
 
       // 2. Check if the incoming origin is in the allowed list
       if (allowedOrigins.indexOf(origin) === -1) {

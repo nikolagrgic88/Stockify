@@ -7,6 +7,7 @@ import { handleAxiosError } from "../../shared/utils/handleAxiosError";
 interface CompanyData {
   name: string;
   dbURI: string;
+  companyId: string;
 }
 
 const CompanyFormAction = async ({ request }: ActionFunctionArgs) => {
@@ -23,7 +24,9 @@ const CompanyFormAction = async ({ request }: ActionFunctionArgs) => {
     });
 
     const data = response.data as CompanyData;
+
     const setCompany = useCompanyState.getState().setCompany;
+    console.log("DATA", data);
 
     setCompany(data);
 
