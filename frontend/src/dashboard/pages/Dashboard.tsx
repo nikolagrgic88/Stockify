@@ -6,7 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchDashboardStats } from "../services/api";
 import { fetchUsers } from "../../users/services/api";
 import { useMemo } from "react";
-import { PageCard } from "../../shared";
+import { GlobalLoader, PageCard } from "../../shared";
 
 export type DashboardStats = {
   emptyLocationsPerAisle: { emptyCount: string; section: string }[];
@@ -29,14 +29,14 @@ export default function Dashboard() {
       fetchDashboardStats(signal),
   });
 
-  const { data: userData } = useQuery({
+  const { data: userData, isLoading } = useQuery({
     queryKey: ["users"],
     queryFn: ({ signal }: { signal: AbortSignal }) => fetchUsers({ signal }),
   });
 
   // Prepare combined data for the bar chart
   const combinedUsersData = useMemo(() => {
-    if (!userData || !data) return [];
+    if (!userData?.users || !data) return [];
 
     return userData.users
       .filter((user) => user.isActive === true)
@@ -80,6 +80,9 @@ export default function Dashboard() {
       usedCount: usedMap.get(section) ?? 0,
     }));
   }, [data]);
+  if (isLoading || !userData?.users || !data) {
+    return <GlobalLoader />;
+  }
 
   return (
     <PageCard>
