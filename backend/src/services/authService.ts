@@ -28,10 +28,11 @@ export const jwtVerification = (userType: "company" | "user") => {
   return (req: Request, res: Response, next: NextFunction) => {
     const authHeader = req.headers["authorization"];
 
-    const token =
-      authHeader && authHeader.split(" ")[1]
-        ? authHeader.split(" ")[1]
-        : req.cookies[`${userType}_auth_token`]; // Check for cookies
+    const token = req.cookies[`${userType}_auth_token`];
+    // authHeader && authHeader.split(" ")[1]
+    //   ? authHeader.split(" ")[1]
+    //   : req.cookies[`${userType}_auth_token`]; // Check for cookies
+
     console.log("TOKEN,", token);
 
     if (!token) {

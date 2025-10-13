@@ -26,7 +26,6 @@ const CompanyFormAction = async ({ request }: ActionFunctionArgs) => {
     const data = response.data as CompanyData;
 
     const setCompany = useCompanyState.getState().setCompany;
-    console.log("DATA", data);
 
     setCompany(data);
 

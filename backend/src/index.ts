@@ -45,10 +45,9 @@ app.use(
         return callback(new Error(msg));
       }
 
-      // 3. 🚨 FIX: Allow the request by passing 'true'
       return callback(null, true);
     },
-    // CRITICAL for cross-site cookies
+   
     credentials: true,
   })
 );

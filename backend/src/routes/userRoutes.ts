@@ -16,6 +16,7 @@ router.put(
 router.use(verifyUserToken);
 router.post(
   "/new-user",
+  authorize(["admin", "manager"]),
   validation.createUserValidation,
   errorValidationService,
   user.createUser
@@ -23,6 +24,7 @@ router.post(
 
 router.patch(
   "/:userId",
+  authorize(["admin", "manager"]),
   validation.updateUserValidation,
   errorValidationService,
   user.updateUserById
