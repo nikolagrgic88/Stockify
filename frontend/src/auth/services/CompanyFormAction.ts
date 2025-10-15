@@ -15,13 +15,13 @@ const CompanyFormAction = async ({ request }: ActionFunctionArgs) => {
     const formData = await request.formData();
     const companyData = Object.fromEntries(formData.entries());
 
-    await axios.post(AUTH_URL.COMPANY_LOGIN, companyData, {
+    const response = await axios.post(AUTH_URL.COMPANY_LOGIN, companyData, {
       withCredentials: true,
     });
 
-    const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
-      withCredentials: true,
-    });
+    // const response = await axios.get(AUTH_URL.COMPANY_AUTH_ME, {
+    //   withCredentials: true,
+    // });
 
     const data = response.data as CompanyData;
 
