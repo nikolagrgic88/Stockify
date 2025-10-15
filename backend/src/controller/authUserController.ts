@@ -13,18 +13,16 @@ export const postUserLogin = async (
   next: NextFunction
 ) => {
   const { email, password } = req.body;
- 
 
   const secret = process.env.USER_JWT_SECRET as string;
   try {
-    const user = (await User.findOne({ email })) as IUser;
+    const emailClean = email.toLowerCase();
+    const user = (await User.findOne({ emailClean })) as IUser;
     if (!user) {
       res.status(404).json({ message: "User not found!" });
       return;
     }
     const cleanPassword = String(password).trim();
-
- 
 
     const isPasswordValid = await argon2.verify(user.password, cleanPassword);
 
@@ -90,7 +88,6 @@ export const getCurrentUser = async (
     }
 
     const user = await User.findById(decodedUser.userId);
-    console.log("USER", user);
 
     if (!user) {
       console.log("not FOund");

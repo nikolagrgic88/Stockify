@@ -85,22 +85,6 @@ export const getUserByFilter = async (
 
     const user = await User.find(filter);
 
-    // const users = await User.find({
-    //   $or: [
-    //     { _id: filter._id },
-    //     { createdAt: filter.createdAt },
-    //     { updatedAt: filter.updatedAt },
-    //     { auth: filter.auth },
-    //     { position: filter.position },
-    //     { isActive: filter.isActive },
-    //     { userName: filter.userName },
-    //     { firstName: filter.firstName },
-    //     { lastName: filter.lastName },
-    //     { email: filter.email },
-    //     { phoneNumber: filter.phoneNumber },
-    //   ].filter((condition) => Object.keys(condition).length > 0),
-    // });
-
     if (!user) {
       res.status(404).json({ message: "User not found" });
       return;
@@ -135,7 +119,8 @@ export const createUser = async (
   let userName = `${firstName}.${lastName}`;
 
   try {
-    const existingEmail = await User.findOne({ email });
+    const emailClean = email.toLowerCase();
+    const existingEmail = await User.findOne({ emailClean });
     if (existingEmail) {
       res.status(409).json({ message: "Email already exists" });
       return;
@@ -151,13 +136,10 @@ export const createUser = async (
     const cleanPassword = String(password).trim();
     const hashPassword = await argon2.hash(cleanPassword);
 
-    console.log("PASSWORD", password);
-    console.log("EMAIL", email);
-
     const newUser = new User({
       firstName,
       lastName,
-      email,
+      email: emailClean,
       password: hashPassword,
       userName,
       auth,
@@ -215,8 +197,6 @@ export const updateUserById = async (
       return;
     }
 
-    // userUpdatesLogger(updatedData, userId)(req, res, next);
-
     res
       .status(201)
       .json({ message: "User successfully updated", user: updatedUser });
@@ -249,18 +229,13 @@ export const updateUsersPassword = async (
   const userId = req.params.userId;
   const { newPassword } = req.body;
 
-  console.log("PASSWORD", newPassword);
   try {
     const user = await User.findById(userId);
     if (!user) {
       res.status(404).json({ message: "User not found!" });
       return;
     }
-    // const isPasswordValid = await bcrypts.compare(oldPassword, user.password);
-    // if (!isPasswordValid) {
-    //   res.status(401).json({ message: "Invalid password!" });
-    //   return;
-    // }
+
     const cleanPassword = String(newPassword).trim();
     const hashPassword = await argon2.hash(cleanPassword);
 
@@ -274,7 +249,6 @@ export const updateUsersPassword = async (
       return;
     }
 
-    // userUpdatesLogger({ password: hashPassword }, userId)(req, res, next);
     res.status(200).json({ message: "Password updated successfully!" });
   } catch (error) {
     next(error);
