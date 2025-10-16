@@ -16,8 +16,8 @@ export const postUserLogin = async (
 
   const secret = process.env.USER_JWT_SECRET as string;
   try {
-    const emailClean = email.toLowerCase();
-    const user = (await User.findOne({ emailClean })) as IUser;
+    const cleanEmail = email.toLowerCase();
+    const user = (await User.findOne({ email:cleanEmail })) as IUser;
     if (!user) {
       res.status(404).json({ message: "User not found!" });
       return;

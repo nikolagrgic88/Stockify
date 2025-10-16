@@ -62,6 +62,7 @@ const orderSchema = new Schema<IOrder>({
     email: {
       type: String,
       required: true,
+      lowercase: true,
     },
     shippingAddress: {
       streetName: { type: String, required: true },

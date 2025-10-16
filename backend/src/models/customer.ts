@@ -16,7 +16,7 @@ export interface ICustomer extends Document {
 
 const customerSchema = new Schema<ICustomer>(
   {
-    email: { type: String, required: true, unique: true },
+    email: { type: String, required: true, unique: true, lowercase: true },
     shippingAddress: {
       streetName: { type: String, required: true },
       streetNumber: { type: Number, required: true },

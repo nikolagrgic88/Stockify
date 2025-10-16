@@ -120,7 +120,7 @@ export const createUser = async (
 
   try {
     const emailClean = email.toLowerCase();
-    const existingEmail = await User.findOne({ emailClean });
+    const existingEmail = await User.findOne({ email:emailClean });
     if (existingEmail) {
       res.status(409).json({ message: "Email already exists" });
       return;
@@ -139,7 +139,7 @@ export const createUser = async (
     const newUser = new User({
       firstName,
       lastName,
-      email: emailClean,
+      email,
       password: hashPassword,
       userName,
       auth,

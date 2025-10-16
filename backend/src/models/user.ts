@@ -18,7 +18,13 @@ const userSchema = new Schema<IUser>(
   {
     firstName: { type: String, required: true, minlength: 2 },
     lastName: { type: String, required: true, minlength: 2 },
-    email: { type: String, required: true, unique: true, match: /.+\@.+\..+/ },
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+      match: /.+\@.+\..+/,
+      lowercase: true,
+    },
     password: { type: String, required: true, minlength: 6 },
     userName: {
       type: String,
